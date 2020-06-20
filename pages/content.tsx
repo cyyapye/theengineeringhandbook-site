@@ -1,4 +1,4 @@
-import { getSortedChapters } from '../lib/content'
+import { getSortedChapters, SortableChapter } from '../lib/content'
 import Layout from '../components/layout'
 
 export async function getStaticProps() {
@@ -11,10 +11,10 @@ export async function getStaticProps() {
     }
 }
 
-export default function Content({ chapters }) {
+export default function Content({ chapters }: { chapters: SortableChapter[] }) {
     return (
         <Layout>
-            <section>
+            <div>
                 <ul>
                     {chapters.map(({ id, date, title }) => (
                         <li key={id}>
@@ -24,7 +24,7 @@ export default function Content({ chapters }) {
                         </li>
                     ))}
                 </ul>
-            </section>
+            </div>
         </Layout>
     )
 
