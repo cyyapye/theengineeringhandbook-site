@@ -1,5 +1,5 @@
-import Head from 'next/head'
 import { getSortedChapters } from '../lib/content'
+import Layout from '../components/layout'
 
 export async function getStaticProps() {
     const chapters = getSortedChapters()
@@ -13,11 +13,7 @@ export async function getStaticProps() {
 
 export default function Content({ chapters }) {
     return (
-        <div className="container">
-            <Head>
-                <title>The Engineering Handbook</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+        <Layout>
             <section>
                 <ul>
                     {chapters.map(({ id, date, title }) => (
@@ -29,7 +25,7 @@ export default function Content({ chapters }) {
                     ))}
                 </ul>
             </section>
-        </div>
+        </Layout>
     )
 
 }
