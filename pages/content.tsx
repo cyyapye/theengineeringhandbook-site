@@ -14,7 +14,7 @@ export async function getStaticProps() {
 export default function Content({ chapters }: { chapters: SortableChapter[] }) {
     return (
         <Layout>
-            <div>
+            <div style={{minHeight: '100vh', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
                 <ul>
                     {chapters.map(({ id, date, title }) => (
                         <li key={id}>

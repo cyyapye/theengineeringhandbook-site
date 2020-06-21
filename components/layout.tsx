@@ -1,15 +1,22 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
-import * as React from 'react'
+import Head from "next/head"
+import Link from "next/link"
+import styles from "./layout.module.scss"
+import * as React from "react"
+import Author from "./author"
+import classnames from 'classnames'
 
 const name = "Ye Cheng"
-const siteTitle = 'The Engineering Handbook'
+const siteTitle = "The Engineering Handbook"
 
-export default function Layout({ children, home }: { children: React.ReactNode, home?: boolean }) {
+export default function Layout({
+    children,
+    home,
+}: {
+    children: React.ReactNode
+    home?: boolean
+}) {
     return (
-        <div className={styles.container}>
+        <section className="hero is-fullheight">
             <Head>
                 <title>{siteTitle}</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -26,29 +33,21 @@ export default function Layout({ children, home }: { children: React.ReactNode, 
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <header className={styles.header}>
             {!home && (
-                <>
-                    <h2 className={utilStyles.headingLg}>
+                <header className="hero-head">
+                    <h2>
                         <Link href="/">
-                            <a className={utilStyles.colorInherit}>{siteTitle}</a>
+                            <a className="">{siteTitle}</a>
                         </Link>
                     </h2>
-                </>
+                </header>
             )}
-            </header>
-            <main className={styles.main}>
-                {children}
-            </main>
-            <footer className={styles.footer}>
-              <a
-                href="https://twitter.com/cyyapye"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Written by @cyyapye
-              </a>
+            <main className="hero-body">{children}</main>
+            <footer className={classnames('hero-foot')}>
+                <div className={classnames('container', styles.footer)}>
+                    &copy; {new Date().getFullYear()} <Author /> CC BY-NC-SA 4.0
+                </div>
             </footer>
-        </div>
+        </section>
     )
 }

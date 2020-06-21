@@ -1,0 +1,10 @@
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+
+.footer {
+    text-align: center;
+    font-size: $size-7;
+    color: $grey-light;
+    a {
+        color: $grey-light;
+    }
+}
