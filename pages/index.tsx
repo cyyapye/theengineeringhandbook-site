@@ -1,8 +1,8 @@
 import Link from "next/link"
 import Layout from "../components/layout"
-import styles from "./index.module.scss"
 import classnames from 'classnames'
 import Author from '../components/author'
+import styles from "./index.module.scss"
 
 export default function Home() {
   return (
@@ -16,11 +16,11 @@ export default function Home() {
         </div>
 
         <div className="container">
-          <button className={classnames(['button', 'is-dark'], styles.read)}>
-            <Link href="/content">
-              <a>Start reading</a>
-            </Link>
-          </button>
+          <Link href="/content">
+            <button className={classnames(['button', 'is-dark'], styles.read)}>
+                Start reading
+            </button>
+          </Link>
         </div>
       </div>
     </Layout>

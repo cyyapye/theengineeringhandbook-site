@@ -1,9 +1,9 @@
 import Head from "next/head"
 import Link from "next/link"
-import styles from "./layout.module.scss"
 import * as React from "react"
 import Author from "./author"
 import classnames from 'classnames'
+import styles from "./layout.module.scss"
 
 const name = "Ye Cheng"
 const siteTitle = "The Engineering Handbook"
