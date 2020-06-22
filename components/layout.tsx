@@ -35,14 +35,41 @@ export default function Layout({
             </Head>
             {!home && (
                 <header className="hero-head">
-                    <h2>
-                        <Link href="/">
-                            <a className="">{siteTitle}</a>
-                        </Link>
-                    </h2>
+                    <div className="navbar">
+                        <div className="container">
+                            <div className="navbar-brand">
+                                <Link href="/">
+                                    <a className="navbar-item">
+                                        {siteTitle}
+                                    </a>
+                                </Link>
+                                <span className="navbar-burger burger" data-target="navbarMenu">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </div>
+                            <div id="navbarMenu" className="navbar-menu">
+                                <div className="navbar-end">
+                                    <Link href="/">
+                                        <a className="navbar-item is-active">
+                                            Home
+                                        </a>
+                                    </Link>
+                                    <Link href="/about">
+                                        <a className="navbar-item">
+                                            About
+                                        </a>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </header>
             )}
-            <main className="hero-body">{children}</main>
+            <main className="hero-body">
+                <div className="container">{children}</div>
+            </main>
             <footer className={classnames('hero-foot')}>
                 <div className={classnames('container', styles.footer)}>
                     &copy; {new Date().getFullYear()} <Author /> CC BY-NC-SA 4.0
