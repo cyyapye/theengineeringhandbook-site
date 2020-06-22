@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import Head from "next/head"
 import Link from "next/link"
+import { useRouter } from 'next/router'
 import * as React from "react"
 import Author from "./author"
 import classnames from 'classnames'
@@ -15,6 +17,9 @@ export default function Layout({
     children: React.ReactNode
     home?: boolean
 }) {
+    const [showMenu, setShowMenu] = useState(false)
+    const router = useRouter()
+
     return (
         <section className="hero is-fullheight">
             <Head>
@@ -43,17 +48,22 @@ export default function Layout({
                                         {siteTitle}
                                     </a>
                                 </Link>
-                                <span className="navbar-burger burger" data-target="navbarMenu">
+                                <span className={classnames('navbar-burger', 'burger', { 'is-active': showMenu })} data-target="navbarMenuA" onClick={() => setShowMenu(!showMenu)}>
                                     <span></span>
                                     <span></span>
                                     <span></span>
                                 </span>
                             </div>
-                            <div id="navbarMenu" className="navbar-menu">
+                            <div id="navbarMenuA" className={classnames('navbar-menu', { 'is-active': showMenu })}>
                                 <div className="navbar-end">
                                     <Link href="/">
-                                        <a className="navbar-item is-active">
+                                        <a className={classnames('navbar-item', { 'is-active': router.pathname === '/' })}>
                                             Home
+                                        </a>
+                                    </Link>
+                                    <Link href="/content">
+                                        <a className={classnames('navbar-item', { 'is-active': router.pathname === '/content' })}>
+                                            Table of Contents
                                         </a>
                                     </Link>
                                     <Link href="/about">
