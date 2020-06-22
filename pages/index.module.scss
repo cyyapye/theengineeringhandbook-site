@@ -1,24 +1,24 @@
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
 }
 .subtitle {
-  color: $grey;
+  color: $grey !important;
 }
 
 @media (min-width: 361px) {
   .title {
-    font-size: 3rem;
+    font-size: 3rem !important;
   }
 }
 
 @media (min-width: $tablet) {
   .title {
-    font-size: 8rem;
+    font-size: 8rem !important;
   }
   .subtitle {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
 }
 

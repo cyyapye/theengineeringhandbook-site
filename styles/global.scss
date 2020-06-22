@@ -2,6 +2,7 @@
 
 // Import a Google Font
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab');
 
 $body-size: 18px;
 
@@ -14,6 +15,8 @@ $beige-lighter: #eff0eb;
 
 // Update Bulma's global variables
 $family-sans-serif: "Inter", sans-serif;
+$family-primary: $family-sans-serif;
+$family-secondary: "Roboto Slab", Times, serif;
 $grey-dark: $dark-grey;
 $grey-light: $beige-light;
 $primary: $purple;
@@ -29,11 +32,14 @@ $input-shadow: none;
 
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/helpers/typography.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/elements/button.sass";
 @import "../node_modules/bulma/sass/elements/container.sass";
 @import "../node_modules/bulma/sass/elements/title.sass";
+@import "../node_modules/bulma/sass/elements/image.sass";
 @import "../node_modules/bulma/sass/form/_all.sass";
-@import "../node_modules/bulma/sass/components/navbar.sass";
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
+@import "../node_modules/bulma/sass/components/navbar.sass";
+@import "../node_modules/bulma/sass/components/media.sass";
