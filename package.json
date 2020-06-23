@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/classnames": "^2.2.10",
+    "@types/gtag.js": "0.0.3",
     "bulma": "^0.9.0",
     "classnames": "^2.2.6",
     "gray-matter": "^4.0.2",
