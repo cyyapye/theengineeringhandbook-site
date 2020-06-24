@@ -61,9 +61,9 @@ export default function Layout({
                                             Home
                                         </a>
                                     </Link>
-                                    <Link href="/content">
+                                    <Link href="/ch">
                                         <a className={classnames('navbar-item', { 'is-active': router.pathname === '/content' })}>
-                                            Table of Contents
+                                            Contents
                                         </a>
                                     </Link>
                                     <Link href="/about">

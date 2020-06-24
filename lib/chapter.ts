@@ -20,11 +20,34 @@ export function getSortedChapters() {
     })
 
     return chapters.sort((a: SortableChapter, b: SortableChapter) => {
-        if (a.date < b.date) {
+        if (a.id > b.id) {
             return 1
         }
         return -1
     })
+}
+
+export function getChapterIds() {
+    const chapters = getSortedChapters()
+
+    return chapters.map(chapter => {
+        return {
+            params: {
+                id: chapter.id,
+            },
+        }
+    })
+}
+
+export function getChapter(id: string) {
+    const fullPath = path.join(chaptersDir, `${id}.md`)
+    const content = fs.readFileSync(fullPath, 'utf8')
+    const matterResult = matter(content)
+
+    return {
+        id,
+        ...matterResult.data
+    }
 }
 
 export interface SortableChapter {

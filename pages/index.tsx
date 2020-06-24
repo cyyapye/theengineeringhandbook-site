@@ -16,7 +16,7 @@ export default function Home() {
         </div>
 
         <div className="container">
-          <Link href="/content">
+          <Link href="/ch">
             <button className={classnames(['button', 'is-dark'], styles.read)}>
                 Start reading
             </button>
