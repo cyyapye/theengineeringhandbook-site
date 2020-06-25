@@ -39,7 +39,7 @@ export default function Layout({
                 <meta name="twitter:card" content="summary_large_image" />
                 <link rel="stylesheet"
                     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css" />
-                <script defer src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+                <script async src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
             </Head>
             {!home && (
                 <header className="hero-head">
