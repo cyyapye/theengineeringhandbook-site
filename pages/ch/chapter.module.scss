@@ -1,3 +1,19 @@
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+
 .title {
     font-size: 1.75rem;
+}
+
+.chapterNavButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding-bottom: calc(0.5em - 2px);
+    padding-top: calc(0.5em - 2px);
+    text-align: center;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: none;
 }

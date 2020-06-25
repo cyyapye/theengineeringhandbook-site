@@ -46,6 +46,15 @@ export function getChapterIds() {
     })
 }
 
+export function getPrevNextChapters(id: string) {
+    const chapters = getSortedChapters()
+    const chapterIndex = chapters.findIndex(chapter => chapter.id === id)
+    return {
+        previous: chapterIndex > 0 ? chapters[chapterIndex - 1] : null,
+        next: chapterIndex < chapters.length - 1 ? chapters[chapterIndex + 1] : null
+    }
+}
+
 export async function getChapter(id: string) {
     const fullPath = path.join(chaptersDir, `${id}.md`)
     const content = fs.readFileSync(fullPath, 'utf8')

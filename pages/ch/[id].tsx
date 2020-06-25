@@ -1,10 +1,11 @@
-import Layout from '../../components/layout'
+import Link from 'next/link'
 import { GetStaticProps } from 'next'
-import { getChapterIds, getChapter, SortableChapter } from '../../lib/chapter'
+import Layout from '../../components/layout'
+import { getChapterIds, getChapter, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
 import classnames from 'classnames'
 import styles from './chapter.module.scss'
 
-export default function Chapter({ chapter }: ChapterProps) {
+export default function Chapter({ chapter, previous, next }: ChapterProps) {
     return (
         <Layout>
             <div className="is-size-6 is-uppercase">
@@ -15,6 +16,32 @@ export default function Chapter({ chapter }: ChapterProps) {
             </div>
             <div className="content"
                 dangerouslySetInnerHTML={{ __html: chapter.htmlContent }} />
+            <div className="columns mt-4">
+                {previous && (
+                    <div className="column has-text-left">
+                        <Link href={`/ch/${previous.id}`}>
+                            <a className={styles.chapterNavButton}>
+                                <span className="icon">
+                                    <i className="fas fa-chevron-left"></i>
+                                </span>
+                                <span>{previous.title}</span>
+                            </a>
+                        </Link>
+                    </div>
+                )}
+                {next && (
+                    <div className="column has-text-right">
+                        <Link href={`/ch/${next.id}`}>
+                            <a className={styles.chapterNavButton}>
+                                <span>{next.title}</span>
+                                <span className="icon">
+                                    <i className="fas fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </Link>
+                    </div>
+                )}
+            </div>
         </Layout>
     )
 }
@@ -32,14 +59,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (!params) return { props: {} }
 
     const chapter = await getChapter(params.id as string)
+    const { previous, next } = getPrevNextChapters(chapter.id)
 
     return {
         props: {
             chapter,
+            previous,
+            next,
         }
     }
 }
 
 interface ChapterProps {
     chapter: SortableChapter
+    previous: SortableChapter
+    next: SortableChapter
 }

@@ -23,13 +23,6 @@ export default class BetterDocument extends Document {
                         `,
                         }}
                     />
-                    <link rel="stylesheet"
-                        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css" />
-                    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-                    <script charSet="UTF-8"
-                        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
-                    <script charSet="UTF-8"
-                        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
                 </Head>
                     <body>
                         <Main />
