@@ -24,7 +24,7 @@ export default function Content({ chapters }: { chapters: SortableChapter[] }) {
                                 <div className="is-size-7">
                                     {id}
                                 </div>
-                                <Link href={`/ch/${id}`}>
+                                <Link href="/ch/[id]" as={`/ch/${id}`}>
                                     <a className={styles.title}>{title}</a>
                                 </Link>
                             </div>

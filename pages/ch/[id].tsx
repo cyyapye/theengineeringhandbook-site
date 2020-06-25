@@ -19,7 +19,7 @@ export default function Chapter({ chapter, previous, next }: ChapterProps) {
             <div className="columns mt-4">
                 {previous && (
                     <div className="column has-text-left">
-                        <Link href={`/ch/${previous.id}`}>
+                        <Link href="/ch/[id]" as={`/ch/${previous.id}`}>
                             <a className={styles.chapterNavButton}>
                                 <span className="icon">
                                     <i className="fas fa-chevron-left"></i>
@@ -31,7 +31,7 @@ export default function Chapter({ chapter, previous, next }: ChapterProps) {
                 )}
                 {next && (
                     <div className="column has-text-right">
-                        <Link href={`/ch/${next.id}`}>
+                        <Link href="/ch/[id]" as={`/ch/${next.id}`}>
                             <a className={styles.chapterNavButton}>
                                 <span>{next.title}</span>
                                 <span className="icon">
