@@ -13,6 +13,8 @@ export default function Chapter({ chapter }: ChapterProps) {
             <div className={classnames('title', styles.title)}>
                 {chapter.title}
             </div>
+            <div className="content"
+                dangerouslySetInnerHTML={{ __html: chapter.htmlContent }} />
         </Layout>
     )
 }
@@ -29,7 +31,7 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (!params) return { props: {} }
 
-    const chapter = getChapter(params.id as string)
+    const chapter = await getChapter(params.id as string)
 
     return {
         props: {
