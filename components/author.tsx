@@ -6,7 +6,7 @@ function withAvatar(children: JSX.Element) {
     <div className={classnames('media', styles.authorContainer)}>
       <div className="media-left">
         <figure className="image is-64x64">
-          <img className="is-rounded" src="/images/headshot-square-256.jpg" />
+          <img className="is-rounded" src="/images/headshot-square-64.jpg" alt="Ye Cheng" />
         </figure>
       </div>
       <div className="media-content">

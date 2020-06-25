@@ -4,7 +4,7 @@ import { GA_TRACKING_ID } from '../lib/gtag'
 export default class BetterDocument extends Document {
     render() {
         return (
-            <html>
+            <html lang="en">
                 <Head>
                     {/* Global Site Tag (gtag.js) - Google Analytics */}
                     <script
