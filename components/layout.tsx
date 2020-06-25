@@ -37,9 +37,6 @@ export default function Layout({
                 />
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
-                <link rel="stylesheet"
-                    href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css" />
-                <script src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
             </Head>
             {!home && (
                 <header className="hero-head">
@@ -88,11 +85,6 @@ export default function Layout({
                     &copy; {new Date().getFullYear()} <Author /> CC BY-NC-SA 4.0
                 </div>
             </footer>
-            <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-            <script defer charSet="UTF-8"
-                src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
-            <script defer charSet="UTF-8"
-                src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
         </section>
     )
 }
