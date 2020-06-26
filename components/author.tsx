@@ -1,6 +1,11 @@
 import classnames from 'classnames'
 import styles from './author.module.scss'
 
+export const AuthorData = {
+  name: 'Ye Cheng',
+  bio: 'VP of Engineering at Paciolan, ex-BlackBerry Cylance',
+}
+
 function withAvatar(children: JSX.Element) {
   return (
     <div className={classnames('media', styles.authorContainer)}>
@@ -15,7 +20,7 @@ function withAvatar(children: JSX.Element) {
               '/images/headshot-128x128.jpg 2x',
               '/images/headshot-64x64.jpg 1x',
             ].join(', ')}
-            alt="Ye Cheng" />
+            alt={AuthorData.name} />
         </figure>
       </div>
       <div className="media-content">
@@ -33,11 +38,11 @@ export default function Author({ avatar = false, bio = false }: AuthorProps) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Ye Cheng
+        {AuthorData.name}
       </a>
       {bio && (
         <p className="is-size-7 is-family-secondary">
-          VP of Engineering at Paciolan, ex-BlackBerry Cylance.
+          {AuthorData.bio}
         </p>
       )}
     </>

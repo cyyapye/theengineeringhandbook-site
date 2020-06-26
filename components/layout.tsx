@@ -3,7 +3,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from 'next/router'
 import * as React from "react"
-import Author from "./author"
+import Author, { AuthorData } from "./author"
 import classnames from 'classnames'
 import styles from "./layout.module.scss"
 
@@ -27,7 +27,7 @@ export default function Layout({
                 <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="description"
-                    content="Learn how to build a personal website using Next.js"
+                    content={`How I run engineering teams. A free book by ${AuthorData.name}, ${AuthorData.bio}`}
                 />
                 <meta
                     property="og:image"
