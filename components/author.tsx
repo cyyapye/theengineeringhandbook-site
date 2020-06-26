@@ -6,7 +6,16 @@ function withAvatar(children: JSX.Element) {
     <div className={classnames('media', styles.authorContainer)}>
       <div className="media-left">
         <figure className="image is-64x64">
-          <img className="is-rounded" src="/images/headshot-square-64.jpg" alt="Ye Cheng" />
+          <img 
+            className="is-rounded" 
+            src="/images/headshot-square-64.jpg" 
+            srcSet={[
+              '/images/headshot-256x256.jpg 4x',
+              '/images/headshot-192x192.jpg 3x',
+              '/images/headshot-128x128.jpg 2x',
+              '/images/headshot-64x64.jpg 1x',
+            ].join(', ')}
+            alt="Ye Cheng" />
         </figure>
       </div>
       <div className="media-content">
