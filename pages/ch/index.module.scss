@@ -1,3 +1,11 @@
+.content {
+    min-height: 100vh;
+    flex: 1;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 .chapter {
     margin: 1rem 0rem;
     
