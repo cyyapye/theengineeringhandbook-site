@@ -34,7 +34,7 @@ export default function Author({ avatar = false, bio = false }: AuthorProps) {
   const author = (
     <>
       <a
-        href="https://twitter.com/cyyapye"
+        href="https://cyyapye.com"
         target="_blank"
         rel="noopener noreferrer"
       >

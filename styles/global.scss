@@ -53,6 +53,11 @@ $button-text-hover-background-color: none;
 @import "../node_modules/bulma/sass/components/media.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
 
+
+.page-title {
+    font-size: 1.75rem;
+}
+
 .content {
     max-width: calc(100vw - 3rem);
 }

@@ -11,7 +11,7 @@ export default function Chapter({ chapter, previous, next }: ChapterProps) {
             <div className="is-size-6 is-uppercase">
                 {chapter.id}
             </div>
-            <h1 className={classnames('title', styles.title)}>
+            <h1 className="title page-title">
                 {chapter.title}
             </h1>
             <div className="content"
