@@ -11,9 +11,9 @@ function withAvatar(children: JSX.Element) {
     <div className={classnames('media', styles.authorContainer)}>
       <div className="media-left">
         <figure className="image is-64x64">
-          <img 
-            className="is-rounded" 
-            src="/images/headshot-square-64.jpg" 
+          <img
+            className="is-rounded"
+            src="/images/headshot-square-64.jpg"
             srcSet={[
               '/images/headshot-256x256.jpg 4x',
               '/images/headshot-192x192.jpg 3x',
@@ -30,7 +30,10 @@ function withAvatar(children: JSX.Element) {
   )
 }
 
-export default function Author({ avatar = false, bio = false }: AuthorProps) {
+export default function Author({
+  avatar = false,
+  bio = false,
+  social = false, }: AuthorProps) {
   const author = (
     <>
       <a
@@ -41,9 +44,39 @@ export default function Author({ avatar = false, bio = false }: AuthorProps) {
         {AuthorData.name}
       </a>
       {bio && (
-        <p className="is-size-7 is-family-secondary">
-          {AuthorData.bio}
-        </p>
+        <>
+          <p className="is-size-7 is-family-secondary">
+            {AuthorData.bio}
+          </p>
+        </>
+      )}
+      {social && (
+        <div className={styles.social}>
+          <a
+            href="https://twitter.com/cyyapye"
+            target="_blank"
+            rel="noopener noreferrer">
+            <span className="icon">
+              <i className="fab fa-twitter"></i>
+            </span>
+          </a>
+          <a
+            href="https://linkedin.com/in/chengye"
+            target="_blank"
+            rel="noopener noreferrer">
+            <span className="icon">
+              <i className="fab fa-linkedin"></i>
+            </span>
+          </a>
+          <a
+            href="https://github.com/cyyapye"
+            target="_blank"
+            rel="noopener noreferrer">
+            <span className="icon">
+              <i className="fab fa-github"></i>
+            </span>
+          </a>
+        </div>
       )}
     </>
   )
@@ -54,4 +87,5 @@ export default function Author({ avatar = false, bio = false }: AuthorProps) {
 interface AuthorProps {
   avatar?: boolean
   bio?: boolean
+  social?: boolean
 }

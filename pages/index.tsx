@@ -12,7 +12,7 @@ export default function Home() {
         <h2 className={classnames('subtitle', styles.subtitle)}>How I run engineering teams</h2>
 
         <div className={styles.byline}>
-          <Author avatar bio />
+          <Author avatar bio social />
         </div>
 
         <div className="container">
