@@ -1,10 +1,10 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { GA_TRACKING_ID } from '../lib/gtag'
 
 export default class BetterDocument extends Document {
     render() {
         return (
-            <html lang="en">
+            <Html lang="en">
                 <Head>
                     {/* Global Site Tag (gtag.js) - Google Analytics */}
                     <script
@@ -36,7 +36,7 @@ export default class BetterDocument extends Document {
                         <script defer charSet="UTF-8"
                             src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
                     </body>
-            </html>
+            </Html>
         )
     }
 }

@@ -52,3 +52,7 @@ $button-text-hover-background-color: none;
 @import "../node_modules/bulma/sass/components/navbar.sass";
 @import "../node_modules/bulma/sass/components/media.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
+
+.content {
+    max-width: calc(100vw - 3rem);
+}

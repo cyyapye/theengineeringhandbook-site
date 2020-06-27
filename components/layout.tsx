@@ -56,14 +56,9 @@ export default function Layout({
                             </div>
                             <div id="navbarMenuA" className={classnames('navbar-menu', { 'is-active': showMenu })}>
                                 <div className="navbar-end">
-                                    <Link href="/">
-                                        <a className={classnames('navbar-item', { 'is-active': router.pathname === '/' })}>
-                                            Home
-                                        </a>
-                                    </Link>
                                     <Link href="/ch">
                                         <a className={classnames('navbar-item', { 'is-active': router.pathname === '/content' })}>
-                                            Contents
+                                            Content
                                         </a>
                                     </Link>
                                     <Link href="/about">

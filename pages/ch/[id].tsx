@@ -11,9 +11,9 @@ export default function Chapter({ chapter, previous, next }: ChapterProps) {
             <div className="is-size-6 is-uppercase">
                 {chapter.id}
             </div>
-            <div className={classnames('title', styles.title)}>
+            <h1 className={classnames('title', styles.title)}>
                 {chapter.title}
-            </div>
+            </h1>
             <div className="content"
                 dangerouslySetInnerHTML={{ __html: chapter.htmlContent }} />
             <div className="columns mt-4">
