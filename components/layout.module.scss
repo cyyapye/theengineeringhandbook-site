@@ -1,5 +1,13 @@
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 
+.brand {
+    color: $grey;
+}
+
+.isActive {
+    font-weight: bold;
+}
+
 .footer {
     text-align: center;
     font-size: $size-7;

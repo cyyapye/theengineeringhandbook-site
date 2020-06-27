@@ -44,7 +44,7 @@ export default function Layout({
                         <div className="container">
                             <div className="navbar-brand">
                                 <Link href="/">
-                                    <a className="navbar-item">
+                                    <a className={classnames('navbar-item', styles.brand)}>
                                         {siteTitle}
                                     </a>
                                 </Link>
@@ -57,12 +57,12 @@ export default function Layout({
                             <div id="navbarMenuA" className={classnames('navbar-menu', { 'is-active': showMenu })}>
                                 <div className="navbar-end">
                                     <Link href="/ch">
-                                        <a className={classnames('navbar-item', { 'is-active': router.pathname === '/content' })}>
+                                        <a className={classnames('navbar-item', { [styles.isActive]: router.pathname === '/ch' })}>
                                             Content
                                         </a>
                                     </Link>
                                     <Link href="/about">
-                                        <a className="navbar-item">
+                                        <a className={classnames('navbar-item', { [styles.isActive]: router.pathname === '/about' })}>
                                             About
                                         </a>
                                     </Link>
