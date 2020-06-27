@@ -23,7 +23,19 @@ export default function About() {
                         alt={AuthorData.name} />
                 </figure>
                 <p>
-                    Hi there! I'm Ye Cheng. 
+                    Hi there! I'm Ye Cheng. When I started writing on <a href="https://cyyapye.com">my
+                    blog</a>, I mostly wrote about the lessons I learned from reading and running
+                    engineering teams. But, occasionally, I also write about personal stories. 
+                    Then, I realized the content is easier to consume if I separate the lessons from
+                    my personal stories.
+                </p>
+                <p>
+                    Besides, I've always wanted to write a book no one wants to pay for. So,
+                    why not start now?
+                </p>
+                <p>
+                    My plan is to write the book live in the open. So, what you'll see is raw notes
+                    slowly transformed into readable content as chapters are written.
                 </p>
             </div>
         </Layout>
