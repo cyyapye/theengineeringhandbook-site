@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Layout from '../components/layout'
 import { AuthorData } from '../components/author'
 import classnames from 'classnames'
@@ -25,7 +26,7 @@ export default function About() {
                 <p>
                     Hi there! I'm Ye Cheng. When I started writing on <a href="https://cyyapye.com">my
                     blog</a>, I mostly wrote about the lessons I learned from reading and running
-                    engineering teams. But, occasionally, I also write about personal stories. 
+                    engineering teams. But, occasionally, I also wrote about personal stories. 
                     Then, I realized the content is easier to consume if I separate the lessons from
                     my personal stories.
                 </p>
@@ -35,7 +36,10 @@ export default function About() {
                 </p>
                 <p>
                     My plan is to write the book live in the open. So, what you'll see is raw notes
-                    slowly transformed into readable content as chapters are written.
+                    slowly transformed into readable content as chapters are written. I have a rough
+                    idea about the skeleton of the book. Over time I expect to fill
+                    out the <Link href="/ch"><a>content</a></Link> with the topics I want to
+                    cover.
                 </p>
             </div>
         </Layout>
