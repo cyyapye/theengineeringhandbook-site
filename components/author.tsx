@@ -40,6 +40,7 @@ export default function Author({
         href="https://cyyapye.com"
         target="_blank"
         rel="noopener noreferrer"
+        title="Blog"
       >
         {AuthorData.name}
       </a>
@@ -55,7 +56,8 @@ export default function Author({
           <a
             href="https://twitter.com/cyyapye"
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+            title="Twitter">
             <span className="icon">
               <i className="fab fa-twitter"></i>
             </span>
@@ -63,7 +65,8 @@ export default function Author({
           <a
             href="https://linkedin.com/in/chengye"
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+            title="LinkedIn">
             <span className="icon">
               <i className="fab fa-linkedin"></i>
             </span>
@@ -71,7 +74,8 @@ export default function Author({
           <a
             href="https://github.com/cyyapye"
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+            title="GitHub">
             <span className="icon">
               <i className="fab fa-github"></i>
             </span>
