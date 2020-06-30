@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import { getGithubPreviewProps } from 'next-tinacms-github'
 import Layout from '../../components/layout'
-import { getChapterIds, getChapter, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
-import classnames from 'classnames'
+import { getChapterIds, getChapter, getChapterParser, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
 import styles from './chapter.module.scss'
 
-export default function Chapter({ chapter, previous, next }: ChapterProps) {
+export default function Chapter({
+    file: {
+        data: { chapter, previous, next }
+    }
+}: { file: { data: ChapterProps } }) {
     return (
         <Layout>
             <div className="is-size-6 is-uppercase">
@@ -55,17 +59,40 @@ export async function getStaticPaths() {
     }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ 
+    params,
+    preview,
+    previewData,
+}) => {
     if (!params) return { props: {} }
 
     const chapter = await getChapter(params.id as string)
     const { previous, next } = getPrevNextChapters(chapter.id)
 
+    if (preview) {
+        const previewProps = await getGithubPreviewProps({
+            ...previewData,
+            fileRelativePath: `chapters/${chapter.id}.md`,
+            parse: getChapterParser(chapter.id),
+        })
+
+        previewProps.props.file.data = await previewProps.props.file.data
+        return previewProps
+    }
+
     return {
         props: {
-            chapter,
-            previous,
-            next,
+            sourceProvider: null,
+            error: null,
+            preview: false,
+            file: {
+                fileRelativePath: `chapters/${chapter.id}.md`,
+                data: {
+                    chapter,
+                    previous,
+                    next,
+                },
+            },
         }
     }
 }

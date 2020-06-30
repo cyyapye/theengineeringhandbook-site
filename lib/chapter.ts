@@ -58,8 +58,20 @@ export function getPrevNextChapters(id: string) {
 export async function getChapter(id: string) {
     const fullPath = path.join(chaptersDir, `${id}.md`)
     const content = fs.readFileSync(fullPath, 'utf8')
-    const matterResult = matter(content)
+    return await parseChapter(id, content)
+}
 
+export function getChapterParser(id: string) {
+    return async (content: string) => {
+        return {
+            chapter: await parseChapter(id, content),
+            ...getPrevNextChapters(id),
+        }
+    }
+}
+
+async function parseChapter(id: string, content: string) {
+    const matterResult = matter(content)
     const processedContent = await remark()
         .use(externalLinks)
         .use(highlight)
