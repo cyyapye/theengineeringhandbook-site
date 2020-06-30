@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import { getGithubPreviewProps } from 'next-tinacms-github'
+import {
+    useGithubToolbarPlugins,
+} from 'react-tinacms-github'
 import Layout from '../../components/layout'
 import { getChapterIds, getChapter, getChapterParser, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
 import styles from './chapter.module.scss'
@@ -10,6 +13,8 @@ export default function Chapter({
         data: { chapter, previous, next }
     }
 }: { file: { data: ChapterProps } }) {
+    useGithubToolbarPlugins()
+    
     return (
         <Layout>
             <div className="is-size-6 is-uppercase">

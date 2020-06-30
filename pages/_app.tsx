@@ -10,22 +10,6 @@ import Router from 'next/router'
 import * as gtag from '../lib/gtag'
 import '../styles/global.scss'
 
-// export default function MyApp({ Component, pageProps }: AppProps) {
-//     useEffect(() => {
-//         const handleRouteChange = (url: string) => {
-//             gtag.pageView(url)
-//         }
-
-//         Router.events.on('routeChangeComplete', handleRouteChange)
-
-//         return () => {
-//             Router.events.off('routeChangeComplete', handleRouteChange)
-//         }
-//     }, [])
-    
-//     return <Component {...pageProps} />
-// }
-
 export default class Site extends App {
     cms: TinaCMS
 
