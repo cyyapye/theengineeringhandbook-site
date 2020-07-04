@@ -19,11 +19,13 @@ export function getSortedChapters() {
         const content = fs.readFileSync(fullPath, 'utf8')
 
         const matterResult = matter(content)
-
-        return {
+        const chapter: unknown = {
             id,
-            ...matterResult.data
-        } as SortableChapter
+            frontmatter: matterResult.data,
+            markdownBody: matterResult.content,
+        }
+
+        return chapter as SortableChapter
     })
 
     return chapters.sort((a: SortableChapter, b: SortableChapter) => {
@@ -58,8 +60,17 @@ export function getPrevNextChapters(id: string) {
 export async function getChapter(id: string) {
     const fullPath = path.join(chaptersDir, `${id}.md`)
     const content = fs.readFileSync(fullPath, 'utf8')
-    const matterResult = matter(content)
+    return await parseChapter(id, content)
+}
 
+export function getChapterParser(id: string) {
+    return async (content: string) => {
+        return await parseChapter(id, content)
+    }
+}
+
+export async function parseChapter(id: string, content: string) {
+    const matterResult = matter(content)
     const processedContent = await remark()
         .use(externalLinks)
         .use(highlight)
@@ -74,13 +85,16 @@ export async function getChapter(id: string) {
     return {
         id,
         htmlContent,
-        ...matterResult.data
+        frontmatter: matterResult.data,
+        markdownBody: matterResult.content,
     }
 }
 
 export interface SortableChapter {
     id: string
-    title: string
-    date: string
-    htmlContent: string
+    frontmatter: {
+        title: string
+        date: string
+    }
+    htmlContent?: string
 }

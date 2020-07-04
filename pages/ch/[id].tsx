@@ -1,21 +1,89 @@
+import React from 'react'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import { 
+    getGithubPreviewProps,
+    GithubError
+} from 'next-tinacms-github'
+import {
+    useGithubToolbarPlugins,
+    useGithubMarkdownForm,
+} from 'react-tinacms-github'
+import {
+    usePlugin,
+    useCMS,
+} from 'tinacms'
 import Layout from '../../components/layout'
-import { getChapterIds, getChapter, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
-import classnames from 'classnames'
+import { getChapterIds, getChapter, getChapterParser, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
 import styles from './chapter.module.scss'
 
-export default function Chapter({ chapter, previous, next }: ChapterProps) {
+interface FileData {
+    id: string
+    frontmatter: any
+    markdownBody?: string
+    htmlContent?: string
+}
+
+interface ChapterProps {
+    sourceProvider: null
+    error: GithubError
+    preview: boolean
+    file: {
+        sha: string
+        fileRelativePath: string
+        data: FileData
+    }
+    previous: SortableChapter
+    next: SortableChapter
+}
+
+export default function Chapter({
+    file,
+    previous,
+    next,
+}: ChapterProps) {
+    const cms = useCMS()
+
+    React.useEffect(() => {
+        import('react-tinacms-editor').then(
+        ({ HtmlFieldPlugin, MarkdownFieldPlugin }) => {
+            cms.plugins.add(HtmlFieldPlugin)
+            cms.plugins.add(MarkdownFieldPlugin)
+        })
+    }, [])
+      
+    const chapter = file.data
+    const formConfig: any = {
+        id: chapter.id,
+        label: chapter.id,
+        fields: [
+            { 
+                name: 'frontmatter.title',
+                label: 'Title',
+                component: 'text',
+            },
+            { 
+                name: 'markdownBody',
+                label: 'Body',
+                component: 'markdown',
+            },
+        ],
+    }
+    const [pageData, form] = useGithubMarkdownForm(file, formConfig)
+    usePlugin(form)
+
+    useGithubToolbarPlugins()
+
     return (
         <Layout>
             <div className="is-size-6 is-uppercase">
                 {chapter.id}
             </div>
             <h1 className="title page-title">
-                {chapter.title}
+                {chapter.frontmatter.title}
             </h1>
             <div className="content"
-                dangerouslySetInnerHTML={{ __html: chapter.htmlContent }} />
+                dangerouslySetInnerHTML={{ __html: chapter.htmlContent || '' }} />
             <div className="columns mt-4">
                 {previous && (
                     <div className="column has-text-left">
@@ -24,7 +92,7 @@ export default function Chapter({ chapter, previous, next }: ChapterProps) {
                                 <span className="icon">
                                     <i className="fas fa-chevron-left"></i>
                                 </span>
-                                <span>{previous.title}</span>
+                                <span>{previous.frontmatter.title}</span>
                             </a>
                         </Link>
                     </div>
@@ -33,7 +101,7 @@ export default function Chapter({ chapter, previous, next }: ChapterProps) {
                     <div className="column has-text-right">
                         <Link href="/ch/[id]" as={`/ch/${next.id}`}>
                             <a className={styles.chapterNavButton}>
-                                <span>{next.title}</span>
+                                <span>{next.frontmatter.title}</span>
                                 <span className="icon">
                                     <i className="fas fa-chevron-right"></i>
                                 </span>
@@ -55,23 +123,50 @@ export async function getStaticPaths() {
     }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ 
+    params,
+    preview,
+    previewData,
+}) => {
     if (!params) return { props: {} }
 
-    const chapter = await getChapter(params.id as string)
-    const { previous, next } = getPrevNextChapters(chapter.id)
+    const chapterId = params.id as string
+    const fileRelativePath = `chapters/${chapterId}.md`
+    const { previous, next } = getPrevNextChapters(chapterId)
+
+    if (preview) {
+        const previewProps = await getGithubPreviewProps({
+            ...previewData,
+            fileRelativePath,
+            parse: getChapterParser(chapterId),
+        })
+
+        if (previewProps.props.file) {
+            previewProps.props.file.data = await previewProps.props.file.data
+        }
+
+        return {
+            props: {
+                ...previewProps.props,
+                previous,
+                next,
+            }
+        }
+    }
+
+    const chapter = await getChapter(chapterId)
 
     return {
         props: {
-            chapter,
+            sourceProvider: null,
+            error: null,
+            preview: false,
+            file: {
+                fileRelativePath,
+                data: chapter,
+            },
             previous,
             next,
         }
     }
-}
-
-interface ChapterProps {
-    chapter: SortableChapter
-    previous: SortableChapter
-    next: SortableChapter
 }

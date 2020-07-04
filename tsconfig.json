@@ -16,7 +16,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "strict": true
+    "strict": true,
+    "sourceMap": true
   },
   "exclude": [
     "node_modules"

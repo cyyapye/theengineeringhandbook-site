@@ -18,7 +18,7 @@ export default function Content({ chapters }: { chapters: SortableChapter[] }) {
         <Layout>
             <div className={styles.content}>
                 <ul>
-                    {chapters.map(({ id, date, title }, i) => (
+                    {chapters.map(({ id, frontmatter: { title } }, i) => (
                         <li key={id}>
                             <div className={styles.chapter}>
                                 <div className="is-size-7">
