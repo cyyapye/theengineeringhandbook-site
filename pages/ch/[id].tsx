@@ -1,18 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
-import { getGithubPreviewProps } from 'next-tinacms-github'
+import { 
+    getGithubPreviewProps,
+    GithubError
+} from 'next-tinacms-github'
 import {
     useGithubToolbarPlugins,
     useGithubMarkdownForm,
 } from 'react-tinacms-github'
 import {
-    useForm,
-    usePlugins,
     usePlugin,
     useCMS,
-    Form,
-    FormOptions,
 } from 'tinacms'
 import Layout from '../../components/layout'
 import { getChapterIds, getChapter, getChapterParser, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
@@ -25,18 +24,24 @@ interface FileData {
     htmlContent?: string
 }
 
-export default function Chapter({
-    file,
-    // file: {
-    //     data: { chapter, previous, next }
-    // }
-    previous,
-    next,
-}: { file: {
+interface ChapterProps {
+    sourceProvider: null
+    error: GithubError
+    preview: boolean
+    file: {
         sha: string
         fileRelativePath: string
         data: FileData
-    } }) {
+    }
+    previous: SortableChapter
+    next: SortableChapter
+}
+
+export default function Chapter({
+    file,
+    previous,
+    next,
+}: ChapterProps) {
     const cms = useCMS()
 
     React.useEffect(() => {
@@ -47,26 +52,10 @@ export default function Chapter({
         })
     }, [])
       
-    // const { chapter, previous, next } = file.data
-    console.log(file)
     const chapter = file.data
-
-    // const formConfig: any = {
-    //     id: chapter.id,
-    //     initialValues: chapter,
-    //     onSubmit() {
-    //         cms.alerts.success('Saved')
-    //     },
-    // }
-
-    // const [pageData, form] = useForm(formConfig)
     const formConfig: any = {
         id: chapter.id,
         label: chapter.id,
-        // initialValues: {
-        //     title: chapter.title,
-        //     markdownContent: chapter.htmlContent,
-        // },
         fields: [
             { 
                 name: 'frontmatter.title',
@@ -81,8 +70,6 @@ export default function Chapter({
         ],
     }
     const [pageData, form] = useGithubMarkdownForm(file, formConfig)
-
-    console.log(pageData, form)
     usePlugin(form)
 
     useGithubToolbarPlugins()
@@ -105,7 +92,7 @@ export default function Chapter({
                                 <span className="icon">
                                     <i className="fas fa-chevron-left"></i>
                                 </span>
-                                <span>{previous.title}</span>
+                                <span>{previous.frontmatter.title}</span>
                             </a>
                         </Link>
                     </div>
@@ -114,7 +101,7 @@ export default function Chapter({
                     <div className="column has-text-right">
                         <Link href="/ch/[id]" as={`/ch/${next.id}`}>
                             <a className={styles.chapterNavButton}>
-                                <span>{next.title}</span>
+                                <span>{next.frontmatter.title}</span>
                                 <span className="icon">
                                     <i className="fas fa-chevron-right"></i>
                                 </span>
@@ -144,19 +131,27 @@ export const getStaticProps: GetStaticProps = async ({
     if (!params) return { props: {} }
 
     const chapterId = params.id as string
+    const fileRelativePath = `chapters/${chapterId}.md`
     const { previous, next } = getPrevNextChapters(chapterId)
 
     if (preview) {
         const previewProps = await getGithubPreviewProps({
             ...previewData,
-            fileRelativePath: `chapters/${chapterId}.md`,
+            fileRelativePath,
             parse: getChapterParser(chapterId),
         })
 
-        previewProps.props.file.data = await previewProps.props.file.data
-        previewProps.props.previous = previous
-        previewProps.props.next = next
-        return previewProps
+        if (previewProps.props.file) {
+            previewProps.props.file.data = await previewProps.props.file.data
+        }
+
+        return {
+            props: {
+                ...previewProps.props,
+                previous,
+                next,
+            }
+        }
     }
 
     const chapter = await getChapter(chapterId)
@@ -167,22 +162,11 @@ export const getStaticProps: GetStaticProps = async ({
             error: null,
             preview: false,
             file: {
-                fileRelativePath: `chapters/${chapter.id}.md`,
+                fileRelativePath,
                 data: chapter,
-                // data: {
-                //     chapter,
-                //     previous,
-                //     next,
-                // },
             },
             previous,
             next,
         }
     }
-}
-
-interface ChapterProps {
-    chapter: SortableChapter
-    previous: SortableChapter
-    next: SortableChapter
 }
