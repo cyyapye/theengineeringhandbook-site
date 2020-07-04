@@ -63,14 +63,24 @@ export async function getChapter(id: string) {
 
 export function getChapterParser(id: string) {
     return async (content: string) => {
-        return {
-            chapter: await parseChapter(id, content),
-            ...getPrevNextChapters(id),
-        }
+        return await parseChapter(id, content)
+        // return {
+        //     chapter: await parseChapter(id, content),
+        //     ...getPrevNextChapters(id),
+        // }
     }
 }
 
-async function parseChapter(id: string, content: string) {
+// async function parseChapter(id: string, content: string) {
+//     const { data: frontmatter, content: markdownBody } = matter(content)
+//     return {
+//         id,
+//         frontmatter,
+//         markdownBody,
+//     }
+// }
+
+export async function parseChapter(id: string, content: string) {
     const matterResult = matter(content)
     const processedContent = await remark()
         .use(externalLinks)
@@ -86,7 +96,8 @@ async function parseChapter(id: string, content: string) {
     return {
         id,
         htmlContent,
-        ...matterResult.data
+        frontmatter: matterResult.data,
+        markdownBody: matterResult.content,
     }
 }
 
