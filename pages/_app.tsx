@@ -13,7 +13,7 @@ import '../styles/global.scss'
 export default class Site extends App {
     cms: TinaCMS
 
-    constructor(props) {
+    constructor(props: AppProps) {
         super(props)
 
         this.cms = new TinaCMS({
@@ -21,8 +21,8 @@ export default class Site extends App {
                 github: new GithubClient({
                     proxy: '/api/proxy-github',
                     authCallbackRoute: '/api/create-github-access-token',
-                    clientId: process.env.GITHUB_CLIENT_ID,
-                    baseRepoFullName: process.env.REPO_FULL_NAME,
+                    clientId: process.env.GITHUB_CLIENT_ID || '',
+                    baseRepoFullName: process.env.REPO_FULL_NAME || '',
                 }),
             },
             sidebar: {
