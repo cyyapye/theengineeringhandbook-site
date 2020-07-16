@@ -5,7 +5,6 @@ import {
     GithubClient,
     TinacmsGithubProvider,
 } from 'react-tinacms-github'
-import { useEffect } from 'react'
 import Router from 'next/router'
 import * as gtag from '../lib/gtag'
 import '../styles/global.scss'
@@ -17,6 +16,7 @@ export default class Site extends App {
         super(props)
 
         this.cms = new TinaCMS({
+            enabled: props.pageProps.preview,
             apis: {
                 github: new GithubClient({
                     proxy: '/api/proxy-github',
@@ -26,7 +26,7 @@ export default class Site extends App {
                 }),
             },
             sidebar: {
-                hidden: !props.pageProps.preview,
+                hidden: true,
             },
             toolbar: {
                 hidden: !props.pageProps.preview,

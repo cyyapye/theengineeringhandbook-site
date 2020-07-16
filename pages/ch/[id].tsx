@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import { 
@@ -13,8 +13,19 @@ import {
     usePlugin,
     useCMS,
 } from 'tinacms'
+import {
+    InlineForm,
+    InlineTextarea,
+} from 'react-tinacms-inline'
+import { 
+    getChapterIds,
+    getChapter,
+    getChapterParser,
+    getPrevNextChapters,
+    SortableChapter,
+} from '../../lib/chapter'
 import Layout from '../../components/layout'
-import { getChapterIds, getChapter, getChapterParser, getPrevNextChapters, SortableChapter } from '../../lib/chapter'
+import Content from '../../components/content'
 import styles from './chapter.module.scss'
 
 interface FileData {
@@ -44,7 +55,7 @@ export default function Chapter({
 }: ChapterProps) {
     const cms = useCMS()
 
-    React.useEffect(() => {
+    useEffect(() => {
         import('react-tinacms-editor').then(
         ({ HtmlFieldPlugin, MarkdownFieldPlugin }) => {
             cms.plugins.add(HtmlFieldPlugin)
@@ -79,11 +90,12 @@ export default function Chapter({
             <div className="is-size-6 is-uppercase">
                 {chapter.id}
             </div>
-            <h1 className="title page-title">
-                {chapter.frontmatter.title}
-            </h1>
-            <div className="content"
-                dangerouslySetInnerHTML={{ __html: chapter.htmlContent || '' }} />
+            <InlineForm form={form}>
+                <h1 className="title page-title">
+                    <InlineTextarea name="frontmatter.title" focusRing={false} />
+                </h1>
+                <Content chapter={chapter} />
+            </InlineForm>
             <div className="columns mt-4">
                 {previous && (
                     <div className="column has-text-left">
