@@ -1,5 +1,8 @@
 import Link from 'next/link'
-import { getSortedChapters, SortableChapter } from '../../lib/chapter'
+import {
+    getSortedChapters, 
+    SortableChapter,
+} from '../../lib/chapter'
 import Layout from '../../components/layout'
 import styles from './index.module.scss'
 

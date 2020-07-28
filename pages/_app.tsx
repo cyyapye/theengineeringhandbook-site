@@ -26,7 +26,7 @@ export default class Site extends App {
                 }),
             },
             sidebar: {
-                hidden: true,
+                hidden: !props.pageProps.preview,
             },
             toolbar: {
                 hidden: !props.pageProps.preview,

@@ -24,6 +24,10 @@ import {
     getPrevNextChapters,
     SortableChapter,
 } from '../../lib/chapter'
+import {
+    MarkdownCreatorPlugin,
+} from '../../lib/markdown-creator-plugin'
+import slugify from '@sindresorhus/slugify'
 import Layout from '../../components/layout'
 import Content from '../../components/content'
 import styles from './chapter.module.scss'
@@ -81,7 +85,30 @@ export default function Chapter({
         ],
     }
     const [pageData, form] = useGithubMarkdownForm(file, formConfig)
-    usePlugin(form)
+
+    const markdownCreator = new MarkdownCreatorPlugin({
+        label: 'New Chapter',
+        fields: [
+            { name: 'frontmatter.title', label: 'Title', component: 'text', required: true },
+            { name: 'markdownBody', label: 'Body', component: 'markdown'}
+        ],
+        getFileRelativePath({ frontmatter }) {
+            const slug = slugify(frontmatter.title.toLowerCase())
+            return `chapters/${slug}.md`
+        },
+        getFrontmatter({ frontmatter }) {
+            return new Promise(resolve => {
+                resolve({
+                    title: frontmatter.title,
+                    date: new Date().toJSON(),
+                })
+            })
+        },
+        getMarkdownBody({ markdownBody }) {
+            return markdownBody
+        }
+    })
+    usePlugin([form, markdownCreator])
 
     useGithubToolbarPlugins()
 
