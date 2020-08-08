@@ -1,7 +1,6 @@
 import App, { AppProps } from 'next/app'
 import { TinaCMS, TinaProvider } from 'tinacms'
 import {
-    useGithubEditing,
     GithubClient,
     TinacmsGithubProvider,
 } from 'react-tinacms-github'
@@ -26,12 +25,14 @@ export default class Site extends App {
                 }),
             },
             sidebar: {
-                hidden: !props.pageProps.preview,
+                hidden: true,
             },
             toolbar: {
                 hidden: !props.pageProps.preview,
             },
         })
+
+        this.cms.events.subscribe('cms:disable', event => exitEditMode())
     }
 
     componentDidMount() {
@@ -57,7 +58,6 @@ export default class Site extends App {
                     exitEditMode={exitEditMode}
                     error={pageProps.error}
                 >
-                    <EditLink editMode={pageProps.preview} />
                     <Component {...pageProps} />
                 </TinacmsGithubProvider>
             </TinaProvider>
@@ -82,18 +82,4 @@ const exitEditMode = () => {
     return fetch(`/api/reset-preview`).then(() => {
         window.location.reload()
     })
-}
-
-export const EditLink = ({ editMode }: EditLinkProps) => {
-    const github = useGithubEditing()
-
-    return (
-        <button onClick={editMode ? github.exitEditMode : github.enterEditMode}>
-            {editMode ? 'Exit Edit Mode' : 'Edit This Site'}
-        </button>
-    )
-}
-
-export interface EditLinkProps {
-    editMode: boolean
 }

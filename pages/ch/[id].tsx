@@ -6,6 +6,7 @@ import {
     GithubError
 } from 'next-tinacms-github'
 import {
+    useGithubEditing,
     useGithubToolbarPlugins,
     useGithubMarkdownForm,
 } from 'react-tinacms-github'
@@ -56,6 +57,7 @@ export default function Chapter({
     file,
     previous,
     next,
+    preview,
 }: ChapterProps) {
     const cms = useCMS()
 
@@ -114,6 +116,7 @@ export default function Chapter({
 
     return (
         <Layout>
+            <EditLink editMode={preview} />
             <div className="is-size-6 is-uppercase">
                 {chapter.id}
             </div>
@@ -208,4 +211,25 @@ export const getStaticProps: GetStaticProps = async ({
             next,
         }
     }
+}
+
+export const EditLink = ({ editMode }: EditLinkProps) => {
+    if (editMode) {
+        return null
+    }
+
+    const github = useGithubEditing()
+
+    return (
+        <span
+            className="icon is-pulled-right"
+            aria-label="edit"
+            onClick={editMode ? github.exitEditMode : github.enterEditMode}>
+            <i className="fas fa-pen-nib"/>
+        </span>
+    )
+}
+
+export interface EditLinkProps {
+    editMode: boolean
 }
