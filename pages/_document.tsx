@@ -11,7 +11,8 @@ export default class BetterDocument extends Document {
         try {
             ctx.renderPage = () =>
                 originalRenderPage({
-                    enhanceApp: (App: App) => (props: AppProps) => sheet.collectStyles(<App {...props} />),
+                    enhanceApp: (Site: React.ComponentType<any>) => 
+                        (props: AppProps) => sheet.collectStyles(<Site {...props} />),
                 })
 
             const initialProps = await Document.getInitialProps(ctx)
